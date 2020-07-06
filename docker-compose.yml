@@ -1,0 +1,14 @@
+version: "2"
+services:
+  jupyterlab:
+    build:
+      context: .
+    user: root
+    ports:
+      - "80:8888" # localの80番ポートからコンテナの8888番ポートにアクセス
+    volumes:
+      - "./work:/home/jovyan/work" # ← notebookをホストと共有したいためディレクトリをマウント
+    environment:
+      NB_UID: 502 # ← 作業するユーザーのUID UIDはターミナルで `$ id`で確認可能
+      GRANT_SUDO: "yes"
+    command: start.sh jupyter lab
